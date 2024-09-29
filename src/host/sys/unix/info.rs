@@ -3,7 +3,7 @@
 use std::str::FromStr;
 
 use nix::sys;
-use platforms::target::{Arch, OS};
+use platforms::target::OS;
 
 use crate::host::Info;
 
@@ -18,11 +18,7 @@ pub fn info() -> Info {
 	let release = utsname.release().to_str().unwrap_or_default().to_string();
 	let version = utsname.version().to_str().unwrap_or_default().to_string();
 	let hostname = utsname.nodename().to_str().unwrap_or_default().to_string();
-	let architecture = utsname
-		.machine()
-		.to_str()
-		.and_then(|s| Arch::from_str(s).ok())
-		.unwrap_or(Arch::Unknown);
+	let architecture = utsname.machine().to_str().unwrap_or("Unknown").to_string();
 
 	Info {
 		operating_system,

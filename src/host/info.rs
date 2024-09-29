@@ -1,7 +1,7 @@
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-use platforms::target::{Arch, OS};
+use platforms::target::OS;
 
 /// Not found in Python psutil.
 #[cfg_attr(feature = "serde", serde(crate = "renamed_serde"))]
@@ -12,7 +12,7 @@ pub struct Info {
 	pub(crate) release: String,
 	pub(crate) version: String,
 	pub(crate) hostname: String,
-	pub(crate) architecture: Arch,
+	pub(crate) architecture: String,
 }
 
 impl Info {
@@ -32,7 +32,7 @@ impl Info {
 		&self.hostname
 	}
 
-	pub fn architecture(&self) -> Arch {
-		self.architecture
+	pub fn architecture(&self) -> &str {
+		self.architecture.as_str()
 	}
 }
